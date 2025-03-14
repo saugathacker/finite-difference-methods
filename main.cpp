@@ -1,4 +1,8 @@
 #include "EFD.h"
+#include "BSM.h"
+#include <iostream>
+
+using namespace std;
 
 /*
     Consider S0 = 100, K = 100, T = 1 year, σ = 20%, r = 6%, δ = 2%.
@@ -18,4 +22,15 @@ int main()
     double q = 0.02;
 
     EFD efd1(S0, K, r, T, sigma, OptionType::EuropeanCall);
+
+    double call_price = efd1.get_option_price();
+
+    cout << "The EFD call price is " << call_price << endl;
+
+    BSM bsm1(K, S0, T, r, OptionType::EuropeanCall, 0.0);
+    double bsm_call_price = bsm1(sigma);
+
+    cout << "The BSM call price is " << bsm_call_price << endl;
+
+    return 0;
 }

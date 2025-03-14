@@ -16,7 +16,11 @@ target_link_libraries(UtilLib PUBLIC OptionType)  # PUBLIC allows all users of U
 add_library(EFDlib STATIC EFD.cpp)
 target_link_libraries(EFDlib PUBLIC OptionType)  # PUBLIC allows EFD dependents to access UtilLib
 
+# BSM Library
+add_library(BSMlib STATIC BSM.cpp)
+target_link_libraries(BSMlib PUBLIC UtilLib)
+
 
 # Main executable
 add_executable(main main.cpp)
-target_link_libraries(main PUBLIC EFDlib)
+target_link_libraries(main PUBLIC EFDlib BSMlib)

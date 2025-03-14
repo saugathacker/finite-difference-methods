@@ -15,8 +15,8 @@ private:
     double _expiry;
     double _sigma;
 
-    double n;
-    double N;
+    int n;
+    int N;
     double dt;
     double dx;
 
