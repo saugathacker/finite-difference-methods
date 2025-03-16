@@ -13,14 +13,33 @@ add_library(UtilLib STATIC util.cpp)
 target_link_libraries(UtilLib PUBLIC OptionType)  # PUBLIC allows all users of UtilLib to access OptionType
 
 # EFD Library
-add_library(EFDlib STATIC EFD.cpp)
-target_link_libraries(EFDlib PUBLIC OptionType)  # PUBLIC allows EFD dependents to access UtilLib
+add_library(EFDLib STATIC EFD.cpp)
+target_link_libraries(EFDLib PUBLIC OptionType)  # PUBLIC allows EFD dependents to access UtilLib
 
 # BSM Library
-add_library(BSMlib STATIC BSM.cpp)
-target_link_libraries(BSMlib PUBLIC UtilLib)
+add_library(BSMLib STATIC BSM.cpp)
+target_link_libraries(BSMLib PUBLIC UtilLib)
 
+# IFD Library
+add_library(IFDLib STATIC IFD.cpp)
+target_link_libraries(IFDLib PUBLIC OptionType)
+
+# CNFD Library
+add_library(CNFDLib STATIC CNFD.cpp)
+target_link_libraries(CNFDLib PUBLIC OptionType)
+
+# Option Data Library
+add_library(OptionDataLib STATIC OptionData.cpp)
+target_link_libraries(OptionDataLib PUBLIC BSMLib EFDLib IFDLib CNFDLib)
+
+# Ticker Library
+add_library(TickerLib STATIC Ticker.cpp)
+target_link_libraries(TickerLib PUBLIC OptionDataLib)
+
+# FunctionsUtil Library
+add_library(FunctionsUtilLib STATIC FunctionsUtil.cpp)
+target_link_libraries(FunctionsUtilLib PUBLIC TickerLib)
 
 # Main executable
 add_executable(main main.cpp)
-target_link_libraries(main PUBLIC EFDlib BSMlib)
+target_link_libraries(main PUBLIC FunctionsUtilLib)
